@@ -153,9 +153,9 @@ StopButton.isHidden = false
             
             var error : NSError?
             
-            //audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.url, error: &error)
+            audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.url, error: &error)
             
-           // audioPlayer?.delegate = self
+           audioPlayer?.delegate = self
             
             if let err = error{
                 print("audioPlayer error: \(err.localizedDescription)")
@@ -181,6 +181,17 @@ StopButton.isHidden = false
         print("Audio Record Encode Error")
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let playBackVC = segue.destination as! PlayBack_Page
+        do {
+            try playBackVC.file = AVAudioFile(forReading: audioRecorder!.url)
+        }
+        catch {
+            print("Error")
+        }
+         // File rn
+        
+    }
     
 }
 

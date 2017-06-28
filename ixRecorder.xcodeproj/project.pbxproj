@@ -99,6 +99,7 @@
 				TargetAttributes = {
 					637642921F0390280025DA03 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = X62Z6HXVND;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -266,6 +267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X62Z6HXVND;
 				INFOPLIST_FILE = ixRecorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "David-Brown.ixRecorder";
@@ -278,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X62Z6HXVND;
 				INFOPLIST_FILE = ixRecorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "David-Brown.ixRecorder";

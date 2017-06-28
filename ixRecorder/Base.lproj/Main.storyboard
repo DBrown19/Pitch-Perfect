@@ -69,7 +69,7 @@
         <!--Playback-->
         <scene sceneID="RBH-XE-Zhk">
             <objects>
-                <viewController id="kMI-Q5-slh" sceneMemberID="viewController">
+                <viewController id="kMI-Q5-slh" customClass="PlayBack_Page" customModule="ixRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQe-rM-D5D"/>
                         <viewControllerLayoutGuide type="bottom" id="AWL-an-wIm"/>

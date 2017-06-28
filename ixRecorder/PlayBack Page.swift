@@ -1,4 +1,4 @@
-//
+
 //  PlayBack Page.swift
 //  ixRecorder
 //
@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PlayBack_Page: UIViewController {
+    
+    var file: AVAudioFile?
+    var audioPlayer: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
