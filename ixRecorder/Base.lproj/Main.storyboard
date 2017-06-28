@@ -37,6 +37,15 @@
                                     <action selector="Record:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yuW-0z-IMo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucm-8X-TTw">
+                                <rect key="frame" x="125" y="212" width="146" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Playback"/>
+                                <connections>
+                                    <action selector="Playback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A68-g7-xFl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.066666666666666666" green="0.38039215686274508" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -74,6 +83,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <state key="normal" title="PlayBack"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bac-a6-1sh">
+                                <rect key="frame" x="-53" y="140" width="480" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.066666666669999999" green="0.3803921569" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

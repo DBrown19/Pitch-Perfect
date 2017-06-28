@@ -11,8 +11,9 @@ import AVFoundation
 
 class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
 
-    var audioRecorder: AVAudioRecorder!
+    var audioRecorder: AVAudioRecorder?
     var meterTimer:Timer!
+    var audioPlayer : AVAudioPlayer?
     var isAudioRecordingGranted: Bool!
     @IBOutlet weak var StopButton: UIButton!
     @IBOutlet weak var StartButton: UIButton!
@@ -88,9 +89,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 let audioFilename = getDocumentsDirectory().appendingPathComponent("audioRecording.m4a")
                 //Create the audio recording, and assign ourselves as the delegate
                 audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-                audioRecorder.delegate = self
-                audioRecorder.isMeteringEnabled = true
-                audioRecorder.record()
+                audioRecorder?.delegate = self
+                audioRecorder?.isMeteringEnabled = true
+                audioRecorder?.record()
                 meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
             }
             catch let error {
@@ -101,7 +102,7 @@ StopButton.isHidden = false
     }
     func finishAudioRecording(success: Bool) {
         
-        audioRecorder.stop()
+        audioRecorder?.stop()
         audioRecorder = nil
         meterTimer.invalidate()
         
@@ -113,14 +114,14 @@ StopButton.isHidden = false
     }
     func updateAudioMeter(timer: Timer) {
         
-        if audioRecorder.isRecording {
-            let hr = Int((audioRecorder.currentTime / 60) / 60)
-            let min = Int(audioRecorder.currentTime / 60)
-            let sec = Int(audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
+        if audioRecorder!.isRecording {
+            let hr = Int((audioRecorder!.currentTime / 60) / 60)
+            let min = Int(audioRecorder!.currentTime / 60)
+            let sec = Int(audioRecorder!.currentTime.truncatingRemainder(dividingBy: 60))
             let totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
             print (totalTimeString)
          //   recordingTimeLabel.text = totalTimeString
-            audioRecorder.updateMeters()
+            audioRecorder?.updateMeters()
         }
     }
     func getDocumentsDirectory() -> URL {
@@ -137,6 +138,50 @@ StopButton.isHidden = false
             finishAudioRecording(success: false)
         }
     }
+    
+    
+    
+    
+    
+    //play your recorded audio
+    @IBAction func Playback(_ sender: Any) {
+    
+        
+        if audioRecorder?.isRecording == false{
+            StopButton.isEnabled = true
+            StartButton.isEnabled = false
+            
+            var error : NSError?
+            
+            //audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.url, error: &error)
+            
+           // audioPlayer?.delegate = self
+            
+            if let err = error{
+                print("audioPlayer error: \(err.localizedDescription)")
+            }else{
+                audioPlayer?.play()
+            }
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer!, successfully flag: Bool) {
+        StartButton.isEnabled = true
+        StopButton.isEnabled = false
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
+        print("Audio Play Decode Error")
+    }
+    
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+    }
+    
+    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
+        print("Audio Record Encode Error")
+    }
+    
+    
 }
 
   
