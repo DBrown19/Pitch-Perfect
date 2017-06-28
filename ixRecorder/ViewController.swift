@@ -14,9 +14,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     var audioRecorder: AVAudioRecorder!
     var meterTimer:Timer!
     var isAudioRecordingGranted: Bool!
+    @IBOutlet weak var StopButton: UIButton!
+    @IBOutlet weak var StartButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        StopButton.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
         super.viewDidLoad()
         
@@ -54,10 +57,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         
       
                 }
+  
+    
     
     @IBAction func playSound(_ sender: Any) {
              finishAudioRecording(success: true)
+        StopButton.isHidden = true
+        StartButton.isHidden = true
     }
+
 
     @IBAction func Record(_ sender: Any) {
         if isAudioRecordingGranted {
@@ -89,7 +97,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 print("Error for start audio recording: \(error.localizedDescription)")
             }
         }
-
+StopButton.isHidden = false
     }
     func finishAudioRecording(success: Bool) {
         
@@ -131,4 +139,5 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     }
 }
 
+  
   
