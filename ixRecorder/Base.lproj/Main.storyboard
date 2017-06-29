@@ -38,12 +38,21 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucm-8X-TTw">
-                                <rect key="frame" x="125" y="212" width="146" height="33"/>
+                                <rect key="frame" x="125" y="193" width="146" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Playback"/>
                                 <connections>
                                     <action selector="Playback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A68-g7-xFl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhK-KE-eUl">
+                                <rect key="frame" x="125" y="251" width="110" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title=" Playback" image="Arrow"/>
+                                <connections>
+                                    <action selector="ReloadButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LqU-3L-tjE"/>
+                                    <segue destination="kMI-Q5-slh" kind="show" id="l7w-Uw-HoS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -53,13 +62,14 @@
                         <barButtonItem key="rightBarButtonItem" title="Playback " id="sRt-Hv-zmw">
                             <color key="tintColor" red="0.69235522483849987" green="0.70492637626814658" blue="0.74158031089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="kMI-Q5-slh" kind="push" id="vdB-iw-DvQ"/>
+                                <segue destination="kMI-Q5-slh" kind="push" identifier="PlaybackSegue" id="vdB-iw-DvQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="PlaybackArrow" destination="GhK-KE-eUl" id="4fK-Ey-56O"/>
                         <outlet property="StartButton" destination="TAr-pX-dJ2" id="Cph-v0-XKQ"/>
-                        <outlet property="StopButton" destination="M9T-fT-KDs" id="Qbk-ph-jdi"/>
+                        <outlet property="StopButton" destination="M9T-fT-KDs" id="vVH-67-gir"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -69,7 +79,7 @@
         <!--Playback-->
         <scene sceneID="RBH-XE-Zhk">
             <objects>
-                <viewController id="kMI-Q5-slh" customClass="PlayBack_Page" customModule="ixRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kMI-Q5-slh" customClass="Playback_Page" customModule="ixRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQe-rM-D5D"/>
                         <viewControllerLayoutGuide type="bottom" id="AWL-an-wIm"/>
@@ -136,7 +146,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow" width="32" height="32"/>
         <image name="Play.btn" width="64" height="64"/>
         <image name="Stop.btn" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="l7w-Uw-HoS"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -9,11 +9,11 @@
 import UIKit
 import AVFoundation
 
-class PlayBack_Page: UIViewController {
+class Playback_Page: UIViewController {
     
     var file: AVAudioFile?
     var audioPlayer: AVAudioPlayer?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +25,18 @@ class PlayBack_Page: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+/*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "stopRecording") {
+            let pitchVC:PitchViewController = segue.destiantion as! PitchViewController
+            
+            pitchVC.receivedAudio = data
+        }
+ 
+    }
+    */
+    
+    
     /*
     // MARK: - Navigation
 

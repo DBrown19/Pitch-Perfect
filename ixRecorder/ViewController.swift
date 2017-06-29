@@ -17,12 +17,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     var isAudioRecordingGranted: Bool!
     @IBOutlet weak var StopButton: UIButton!
     @IBOutlet weak var StartButton: UIButton!
+    @IBOutlet weak var PlaybackArrow: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         StopButton.isHidden = true
+        PlaybackArrow.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
         super.viewDidLoad()
+        
         
         switch AVAudioSession.sharedInstance().recordPermission() {
         case AVAudioSessionRecordPermission.granted:
@@ -65,8 +68,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
              finishAudioRecording(success: true)
         StopButton.isHidden = true
         StartButton.isHidden = true
+        PlaybackArrow.isHidden = false
     }
 
+    @IBAction func ReloadButtons(_ sender: Any) {
+        StopButton.isHidden = false
+        StartButton.isHidden = false
+    }
 
     @IBAction func Record(_ sender: Any) {
         if isAudioRecordingGranted {
@@ -148,12 +156,12 @@ StopButton.isHidden = false
     
         
         if audioRecorder?.isRecording == false{
-            StopButton.isEnabled = true
+          StopButton.isEnabled = true
             StartButton.isEnabled = false
             
             var error : NSError?
             
-            audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.url, error: &error)
+   // audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.delegate, error: &error)
             
            audioPlayer?.delegate = self
             
@@ -181,16 +189,18 @@ StopButton.isHidden = false
         print("Audio Record Encode Error")
     }
     
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let playBackVC = segue.destination as! PlayBack_Page
+        print(segue.identifier)
+        print(segue.destination)
+        let playBackVC = segue.destination as! Playback_Page
         do {
             try playBackVC.file = AVAudioFile(forReading: audioRecorder!.url)
         }
         catch {
             print("Error")
         }
-         // File rn
-        
+ 
     }
     
 }
