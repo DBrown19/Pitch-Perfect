@@ -1,209 +1,76 @@
-//
-//  ViewController.swift
-//  ixRecorder
-//
-//  Created by David Brown on 6/28/17.
-//  Copyright © 2017 David Brown. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
 
+class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
+    
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var rightArrow: UIButton!
     var audioRecorder: AVAudioRecorder?
-    var meterTimer:Timer!
-    var audioPlayer : AVAudioPlayer?
-    var isAudioRecordingGranted: Bool!
-    @IBOutlet weak var StopButton: UIButton!
-    @IBOutlet weak var StartButton: UIButton!
-    @IBOutlet weak var PlaybackArrow: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        StopButton.isHidden = true
-        PlaybackArrow.isHidden = true
-        // Do any additional setup after loading the view, typically from a nib.
-        super.viewDidLoad()
         
+        stopButton.isEnabled = false
+        stopButton.isHidden = true
+        rightArrow.isHidden = true
+        recordButton.isHidden = false
         
-        switch AVAudioSession.sharedInstance().recordPermission() {
-        case AVAudioSessionRecordPermission.granted:
-            isAudioRecordingGranted = true
-            break
-        case AVAudioSessionRecordPermission.denied:
-            isAudioRecordingGranted = false
-            break
-        case AVAudioSessionRecordPermission.undetermined:
-            AVAudioSession.sharedInstance().requestRecordPermission() { [unowned self] allowed in
-                DispatchQueue.main.async {
-                    if allowed {
-                        self.isAudioRecordingGranted = true
-                    } else {
-                        self.isAudioRecordingGranted = false
-                    }
-                }
-            }
-            break
-        default:
-            break
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        // Dispose of any resources that can be recreated.
-        super.didReceiveMemoryWarning()
+        let fileMgr = FileManager.default
         
-        audioRecorder = nil
-    }
- 
-    func setupRecorder()  {
+        let dirPaths = fileMgr.urls(for: .documentDirectory,
+                                    in: .userDomainMask)
         
-      
-                }
-  
-    
-    
-    @IBAction func playSound(_ sender: Any) {
-             finishAudioRecording(success: true)
-        StopButton.isHidden = true
-        StartButton.isHidden = true
-        PlaybackArrow.isHidden = false
-    }
-
-    @IBAction func ReloadButtons(_ sender: Any) {
-        StopButton.isHidden = false
-        StartButton.isHidden = false
-    }
-
-    @IBAction func Record(_ sender: Any) {
-        if isAudioRecordingGranted {
-            
-            //Create the session.
-            let session = AVAudioSession.sharedInstance()
-            
-            do {
-                //Configure the session for recording and playback.
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-                try session.setActive(true)
-                //Set up a high-quality recording session.
-                let settings = [
-                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                    AVSampleRateKey: 44100,
-                    AVNumberOfChannelsKey: 2,
-                    AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-                ]
-                //Create audio file name URL
-                let audioFilename = getDocumentsDirectory().appendingPathComponent("audioRecording.m4a")
-                //Create the audio recording, and assign ourselves as the delegate
-                audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-                audioRecorder?.delegate = self
-                audioRecorder?.isMeteringEnabled = true
-                audioRecorder?.record()
-                meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-            }
-            catch let error {
-                print("Error for start audio recording: \(error.localizedDescription)")
-            }
-        }
-StopButton.isHidden = false
-    }
-    func finishAudioRecording(success: Bool) {
+        let soundFileURL = dirPaths[0].appendingPathComponent("sound.caf")
         
-        audioRecorder?.stop()
-        audioRecorder = nil
-        meterTimer.invalidate()
+        let recordSettings =
+            [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
+             AVEncoderBitRateKey: 16,
+             AVNumberOfChannelsKey: 2,
+             AVSampleRateKey: 44100.0] as [String : Any]
         
-        if success {
-            print("Recording finished successfully.")
-        } else {
-            print("Recording failed :(")
-        }
-    }
-    func updateAudioMeter(timer: Timer) {
+        let audioSession = AVAudioSession.sharedInstance()
         
-        if audioRecorder!.isRecording {
-            let hr = Int((audioRecorder!.currentTime / 60) / 60)
-            let min = Int(audioRecorder!.currentTime / 60)
-            let sec = Int(audioRecorder!.currentTime.truncatingRemainder(dividingBy: 60))
-            let totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
-            print (totalTimeString)
-         //   recordingTimeLabel.text = totalTimeString
-            audioRecorder?.updateMeters()
-        }
-    }
-    func getDocumentsDirectory() -> URL {
-        
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    //MARK:- Audio recoder delegate methods
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        
-        if !flag {
-            finishAudioRecording(success: false)
-        }
-    }
-    
-    
-    
-    
-    
-    //play your recorded audio
-    @IBAction func Playback(_ sender: Any) {
-    
-        
-        if audioRecorder?.isRecording == false{
-          StopButton.isEnabled = true
-            StartButton.isEnabled = false
-            
-            var error : NSError?
-            
-   // audioPlayer? = AVAudioPlayer(contentsOfURL: audioRecorder?.delegate, error: &error)
-            
-           audioPlayer?.delegate = self
-            
-            if let err = error{
-                print("audioPlayer error: \(err.localizedDescription)")
-            }else{
-                audioPlayer?.play()
-            }
-        }
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer!, successfully flag: Bool) {
-        StartButton.isEnabled = true
-        StopButton.isEnabled = false
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        print("Audio Play Decode Error")
-    }
-    
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-    }
-    
-    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
-        print("Audio Record Encode Error")
-    }
-    
-   
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(segue.identifier)
-        print(segue.destination)
-        let playBackVC = segue.destination as! Playback_Page
         do {
-            try playBackVC.file = AVAudioFile(forReading: audioRecorder!.url)
+            try audioSession.setCategory(
+                AVAudioSessionCategoryPlayAndRecord)
+        } catch let error as NSError {
+            print("audioSession error: \(error.localizedDescription)")
         }
-        catch {
-            print("Error")
+        
+        do {
+            try audioRecorder = AVAudioRecorder(url: soundFileURL,
+                                                settings: recordSettings as [String : AnyObject])
+            audioRecorder?.prepareToRecord()
+        } catch let error as NSError {
+            print("audioSession error: \(error.localizedDescription)")
         }
- 
     }
     
-}
+    @IBAction func recordAudio(_ sender: UIButton) {
+        stopButton.isHidden = false
+        if audioRecorder?.isRecording == false {
+            stopButton.isEnabled = true
+            audioRecorder?.record()
+        }
+    }
+    
+    @IBAction func stopAudio(_ sender: UIButton) {
+        stopButton.isEnabled = false
+        recordButton.isEnabled = true
+        rightArrow.isHidden = false
+        
+        if audioRecorder?.isRecording == true {
+            audioRecorder?.stop()
+            shouldPerformSegue(withIdentifier: "stopRecording", sender: sender)
 
-  
-  
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            let pitchVC: Playback_Page = segue.destination as! Playback_Page
+            pitchVC.receivedAudio = (audioRecorder?.url)!
+     
+}
+}

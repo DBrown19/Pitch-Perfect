@@ -9,43 +9,95 @@
 import UIKit
 import AVFoundation
 
-class Playback_Page: UIViewController {
+
+class Playback_Page: UIViewController, AVAudioPlayerDelegate {
     
-    var file: AVAudioFile?
+    @IBOutlet weak var playButton: UIButton!
+    var receivedAudio: URL?
     var audioPlayer: AVAudioPlayer?
+    var engine: AVAudioEngine!
+    var file: AVAudioFile!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        engine = AVAudioEngine()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-/*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "stopRecording") {
-            let pitchVC:PitchViewController = segue.destiantion as! PitchViewController
-            
-            pitchVC.receivedAudio = data
-        }
+        do {
+            file = try AVAudioFile(forReading: receivedAudio!, commonFormat: AVAudioCommonFormat.pcmFormatFloat32, interleaved: false)
  
+        } catch let error as NSError {
+            //soundFile = nil
+            fatalError("Error creating soundFile, \(error.localizedDescription)")
+        }
     }
-    */
     
+    public func playAudio(value: Float, rateOrPitch: String) {
+        let audioPlayerNode = AVAudioPlayerNode()
+        
+        audioPlayerNode.stop()
+        engine.stop()
+        engine.reset()
+        
+        engine.attach(audioPlayerNode)
+        
+        let changeAudioUnitTime = AVAudioUnitTimePitch()
+        
+        if (rateOrPitch == "rate") {
+            changeAudioUnitTime.rate = value
+        } else {
+            changeAudioUnitTime.pitch = value
+        }
+        
+        
+        engine.attach(changeAudioUnitTime)
+        engine.connect(audioPlayerNode, to: changeAudioUnitTime, format: nil)
+        engine.connect(changeAudioUnitTime, to: engine.outputNode, format: nil)
+        audioPlayerNode.scheduleFile(file!, at: nil, completionHandler: nil)
+        
+        do {
+            try engine.start()
+        } catch {
+            print("Error starting engine")
+        }
+        
+        audioPlayerNode.play()
+    }
     
-    /*
-    // MARK: - Navigation
+    func mixedAudio(rateLevel: Float, pitchLevel: Float) {
+        let audioPlayerNode = AVAudioPlayerNode()
+        
+        audioPlayerNode.stop()
+        engine.stop()
+        engine.reset()
+        
+        engine.attach(audioPlayerNode)
+        
+        let changeAudioUnitTime = AVAudioUnitTimePitch()
+        
+        changeAudioUnitTime.rate = rateLevel
+        changeAudioUnitTime.pitch = pitchLevel
+        
+        engine.attach(changeAudioUnitTime)
+        engine.connect(audioPlayerNode, to: changeAudioUnitTime, format: nil)
+        engine.connect(changeAudioUnitTime, to: engine.outputNode, format: nil)
+        audioPlayerNode.scheduleFile(file!, at: nil, completionHandler: nil)
+        
+        do {
+            try engine.start()
+        } catch {
+            print("Error starting engine")
+        }
+        
+        audioPlayerNode.play()
+    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+ 
+    @IBAction func Audio(_ sender: Any) {
+        playAudio(value: 1, rateOrPitch: "rate")
     }
-    */
+    
 
 }
-
