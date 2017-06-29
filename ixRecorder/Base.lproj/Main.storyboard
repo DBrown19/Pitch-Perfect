@@ -21,36 +21,50 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9T-fT-KDs">
-                                <rect key="frame" x="116" y="291" width="165" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop" image="Stop.btn"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9T-fT-KDs">
+                                <rect key="frame" x="127" y="379" width="100" height="100"/>
+                                <state key="normal" image="Stop.btn"/>
                                 <connections>
-                                    <action selector="playSound:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MtU-k6-ELa"/>
+                                    <action selector="stopAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0b6-0Z-gy3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAr-pX-dJ2">
-                                <rect key="frame" x="137" y="413" width="122" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Record" image="Play.btn"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhK-KE-eUl">
+                                <rect key="frame" x="141" y="60" width="93" height="75"/>
+                                <state key="normal" image="Arrow"/>
                                 <connections>
-                                    <action selector="Record:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yuW-0z-IMo"/>
+                                    <segue destination="kMI-Q5-slh" kind="show" id="l7w-Uw-HoS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAr-pX-dJ2">
+                                <rect key="frame" x="112" y="170" width="150" height="150"/>
+                                <state key="normal" image="Image"/>
+                                <connections>
+                                    <action selector="recordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IL7-Jb-bJh"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.066666666666666666" green="0.38039215686274508" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.11372549019607843" green="0.63921568627450975" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="GhK-KE-eUl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Oi3-Zi-gf7"/>
+                            <constraint firstItem="M9T-fT-KDs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PVw-wh-HcL"/>
+                            <constraint firstItem="TAr-pX-dJ2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UwQ-Sl-XlB"/>
+                            <constraint firstItem="TAr-pX-dJ2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mCg-ZY-40j"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="M9T-fT-KDs" secondAttribute="bottom" constant="50" id="xoj-4u-9Fi"/>
+                            <constraint firstItem="GhK-KE-eUl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="y73-Bv-PDy"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Main" id="u0O-Va-K1m">
                         <barButtonItem key="rightBarButtonItem" title="Playback " id="sRt-Hv-zmw">
                             <color key="tintColor" red="0.69235522483849987" green="0.70492637626814658" blue="0.74158031089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="kMI-Q5-slh" kind="push" id="vdB-iw-DvQ"/>
+                                <segue destination="kMI-Q5-slh" kind="push" identifier="PlaybackSegue" id="vdB-iw-DvQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="StartButton" destination="TAr-pX-dJ2" id="Cph-v0-XKQ"/>
-                        <outlet property="StopButton" destination="M9T-fT-KDs" id="Qbk-ph-jdi"/>
+                        <outlet property="recordButton" destination="TAr-pX-dJ2" id="ghV-fW-PwS"/>
+                        <outlet property="rightArrow" destination="GhK-KE-eUl" id="Qju-kF-gDL"/>
+                        <outlet property="stopButton" destination="M9T-fT-KDs" id="QcG-8W-kcq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -60,7 +74,7 @@
         <!--Playback-->
         <scene sceneID="RBH-XE-Zhk">
             <objects>
-                <viewController id="kMI-Q5-slh" sceneMemberID="viewController">
+                <viewController id="kMI-Q5-slh" customClass="Playback_Page" customModule="ixRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQe-rM-D5D"/>
                         <viewControllerLayoutGuide type="bottom" id="AWL-an-wIm"/>
@@ -69,16 +83,25 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GI4-UR-gKu">
-                                <rect key="frame" x="116" y="276" width="142" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <state key="normal" title="PlayBack"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eod-Hc-BGl">
+                                <rect key="frame" x="102" y="269" width="171" height="64"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" image="Play.btn"/>
+                                <connections>
+                                    <action selector="Audio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="3ug-IV-fP4"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.066666666669999999" green="0.3803921569" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.11372549019607843" green="0.63921568627450975" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="centerX" secondItem="T7j-6t-hTa" secondAttribute="centerX" id="Nhz-fh-edO"/>
+                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="centerY" secondItem="T7j-6t-hTa" secondAttribute="centerY" id="wC1-jp-pk4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Playback" id="o0h-wY-T16"/>
+                    <connections>
+                        <outlet property="playButton" destination="Eod-Hc-BGl" id="jUg-Sc-Lne"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7LE-Qj-DSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,7 +145,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow" width="32" height="32"/>
+        <image name="Image" width="32" height="32"/>
         <image name="Play.btn" width="64" height="64"/>
         <image name="Stop.btn" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="l7w-Uw-HoS"/>
+    </inferredMetricsTieBreakers>
 </document>
