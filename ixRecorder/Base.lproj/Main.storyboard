@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -83,8 +84,50 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4h-kr-XPh">
+                                <rect key="frame" x="66" y="423" width="43" height="30"/>
+                                <state key="normal" title="Bunny"/>
+                                <connections>
+                                    <action selector="bunnyAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="qVV-Gi-lUS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lm-b7-YX2">
+                                <rect key="frame" x="66" y="473" width="93" height="30"/>
+                                <state key="normal" title="Hummingbird"/>
+                                <connections>
+                                    <action selector="hummingbirdAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="mnh-d9-MEI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAo-ec-R2l">
+                                <rect key="frame" x="273" y="423" width="36" height="30"/>
+                                <state key="normal" title="Sloth"/>
+                                <connections>
+                                    <action selector="slothAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="58b-9Q-4x2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsS-Ew-vPn">
+                                <rect key="frame" x="239" y="473" width="70" height="30"/>
+                                <state key="normal" title="Mammoth"/>
+                                <connections>
+                                    <action selector="mammothAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="t9e-pu-NVe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OeU-Tl-hXg">
+                                <rect key="frame" x="66" y="373" width="34" height="30"/>
+                                <state key="normal" title="Flute"/>
+                                <connections>
+                                    <action selector="highAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="HcZ-g1-kHW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEN-un-x4a">
+                                <rect key="frame" x="233" y="373" width="76" height="30"/>
+                                <state key="normal" title="Didgeridoo"/>
+                                <connections>
+                                    <action selector="lowAudio:" destination="kMI-Q5-slh" eventType="touchUpInside" id="7MQ-Ok-ZWy"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eod-Hc-BGl">
-                                <rect key="frame" x="102" y="269" width="171" height="64"/>
+                                <rect key="frame" x="91" y="110" width="171" height="64"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" image="Play.btn"/>
                                 <connections>
@@ -94,8 +137,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.11372549019607843" green="0.63921568627450975" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="centerX" secondItem="T7j-6t-hTa" secondAttribute="centerX" id="Nhz-fh-edO"/>
-                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="centerY" secondItem="T7j-6t-hTa" secondAttribute="centerY" id="wC1-jp-pk4"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="vAo-ec-R2l" secondAttribute="bottom" constant="150" id="5jh-9i-bjb"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="FsS-Ew-vPn" secondAttribute="bottom" constant="100" id="ANR-NY-U69"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="2lm-b7-YX2" secondAttribute="bottom" constant="100" id="AVZ-Gj-ZUe"/>
+                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="centerX" secondItem="T7j-6t-hTa" secondAttribute="centerX" id="HPM-TP-j6g"/>
+                            <constraint firstItem="OeU-Tl-hXg" firstAttribute="leading" secondItem="T7j-6t-hTa" secondAttribute="leadingMargin" constant="50" id="MD6-nl-xd0"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="OeU-Tl-hXg" secondAttribute="bottom" constant="200" id="YST-kT-Vmo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FsS-Ew-vPn" secondAttribute="trailing" constant="50" id="ZKg-5b-lT0"/>
+                            <constraint firstItem="Eod-Hc-BGl" firstAttribute="top" secondItem="nQe-rM-D5D" secondAttribute="bottom" constant="150" id="awG-fD-Khf"/>
+                            <constraint firstItem="2lm-b7-YX2" firstAttribute="leading" secondItem="T7j-6t-hTa" secondAttribute="leadingMargin" constant="50" id="c0h-tC-VaL"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="hEN-un-x4a" secondAttribute="bottom" constant="200" id="cU7-fq-EKJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vAo-ec-R2l" secondAttribute="trailing" constant="50" id="eac-7O-kmP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hEN-un-x4a" secondAttribute="trailing" constant="50" id="hkQ-F1-kkv"/>
+                            <constraint firstItem="AWL-an-wIm" firstAttribute="top" secondItem="I4h-kr-XPh" secondAttribute="bottom" constant="150" id="jht-kN-wIA"/>
+                            <constraint firstItem="I4h-kr-XPh" firstAttribute="leading" secondItem="T7j-6t-hTa" secondAttribute="leadingMargin" constant="50" id="jut-9C-SS7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Playback" id="o0h-wY-T16"/>

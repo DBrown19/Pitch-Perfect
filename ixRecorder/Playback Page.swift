@@ -99,5 +99,30 @@ class Playback_Page: UIViewController, AVAudioPlayerDelegate {
         playAudio(value: 1, rateOrPitch: "rate")
     }
     
+    @IBAction func highAudio(_ sender: Any) {
+        playAudio(value: 1000, rateOrPitch: "pitch")
+    }
+    
+    @IBAction func lowAudio(_ sender: Any) {
+        playAudio(value: -500, rateOrPitch: "pitch")
+    }
+    
+    @IBAction func bunnyAudio(_ sender: Any) {
+        playAudio(value: 2, rateOrPitch: "rate")
+    }
+    
+    @IBAction func slothAudio(_ sender: Any) {
+        playAudio(value: 0.5, rateOrPitch: "rate")
+    }
+    
+    @IBAction func mammothAudio(_ sender: Any) {
+        mixedAudio(rateLevel: 0.3, pitchLevel: -500)
+    }
+    
+    @IBAction func hummingbirdAudio(_ sender: Any) {
+        mixedAudio(rateLevel: 4, pitchLevel: 1000)
+    }
+
+    
 
 }
